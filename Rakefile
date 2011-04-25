@@ -1,5 +1,5 @@
 module VIM
-  Dirs = %w[ after autoload doc plugin ruby snippets syntax ftdetect ftplugin colors indent ]
+  Dirs = %w[ bundle ]
 end
 
 directory "tmp"
@@ -86,17 +86,6 @@ def vim_plugin_task(name, repo=nil)
 
       task :install => [:pull] + subdirs do
         Dir.chdir dir do
-          if File.exists?("Rakefile") and `rake -T` =~ /^rake install/
-            sh "rake install"
-          elsif File.exists?("install.sh")
-            sh "sh install.sh"
-          else
-            subdirs.each do |subdir|
-              if File.exists?(subdir)
-                sh "cp -RfL #{subdir}/* #{cwd}/#{subdir}/"
-              end
-            end
-          end
         end
 
         yield if block_given?
@@ -247,7 +236,6 @@ end
 
 task :default => [
   :update_docs,
-  :link_vimrc
 ]
 
 desc "Clear out all build artifacts and rebuild the latest Janus"

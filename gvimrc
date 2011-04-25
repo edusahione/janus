@@ -69,7 +69,7 @@ set visualbell
 set guioptions-=T
 
 " Default gui color scheme
-color ir_black
+color railscasts2
 
 " ConqueTerm wrapper
 function StartTerm()
